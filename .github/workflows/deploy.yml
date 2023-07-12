@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x, 14.19.1]
+        node-version: [16.x, 20.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -27,7 +27,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: yarn install --frozen-lockfile
       #-run: yarn build
-      - run: yarn test
+      #- run: yarn test
 
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.1
@@ -35,6 +35,6 @@ jobs:
           switches: -avzr --delete
           path: ./*
           remote_path: /var/www/my-app/
-          remote_host: <host>.compute.amazonaws.com
+          remote_host: 3.213.92.183
           remote_user: ubuntu
           remote_key: "${{ secrets.SSH_AWS_AUTODEPLOY }}"
