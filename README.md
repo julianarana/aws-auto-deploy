@@ -36,12 +36,21 @@ Intended to be a configuration to deploy easily from github into AWS EC2 instanc
     4. Restart nginx `sudo systemctl restart nginx`
 4. Setup project in ngnix server
     1. `sudo mkdir /var/www/my-app` and give permissions `sudo chown www-data:www-data /var/www/my-app` `sudo chmod -R 775 /var/www` and add to the correct group `sudo usermod -a -G www-data [my username]`
-5. Install Node and nvm
+5. Install Node and pm2
     1. `Download nvm curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bashnv`
     2. `source ~/.profile`
     3. Install proper version `nvm install 14`
     4. Install `pm2 globally npm install pm2 -g`
+6. Deploy github actions.
+    1. Add the SSH private key into the Github secrets. This file will be used in the following steps to open the connection from Github to AWS.
+    2. Add the deploy.yml file the proper configurations. The file should be located at `.github/workflows`
+7. Run pm2 in watch mode in the server `pm2 start /var/www/my-app/dist/index.js start --watch`
 
+## References
+* [Node.js app continuous deployment with AWS, PM2, and Github Actions.](https://itnext.io/node-js-app-continuous-deployment-with-aws-pm2-and-github-actions-69a30ca29e9e)
+
+* [Deploy your Node App to EC2 with Github Actions](https://dev.to/stretch0/deploy-your-node-app-to-ec2-with-github-actions-h9a)
+* [Deploy your (Node.JS) app to AWS EC2 with GitHub Actions](https://blog.devops.dev/deploy-your-node-js-app-to-aws-ec2-with-github-actions-edec5ef1e694)
 
 
 ## Running the project
